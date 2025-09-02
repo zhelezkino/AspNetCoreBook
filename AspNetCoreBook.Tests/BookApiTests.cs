@@ -21,8 +21,8 @@ public class BookApiTests
         // Добавим тестовые данные
         context.Books.AddRange(new List<Book>
         {
-            new() { Id = 1, Title = "1984", Author = "George Orwell", PublishedYear = 1949 },
-            new() { Id = 2, Title = "Fahrenheit 451", Author = "Ray Bradbury", PublishedYear = 1953 }
+            new() { Id = 1, Title = "Lukomorye", Author = "Pushkin", PublishedYear = 1828 },
+            new() { Id = 2, Title = "War and peace", Author = "Tolstoy", PublishedYear = 1868 }
         });
         await context.SaveChangesAsync();
 
@@ -40,8 +40,8 @@ public class BookApiTests
 
         // Assert
         Assert.Equal(2, books.Count);
-        Assert.Contains(books, b => b.Title == "1984");
-        Assert.Contains(books, b => b.Author == "Ray Bradbury");
+        Assert.Contains(books, b => b.Title == "Lukomorye");
+        Assert.Contains(books, b => b.Author == "Pushkin");
     }
 
     [Fact]
@@ -51,9 +51,9 @@ public class BookApiTests
         using var context = await GetTestDbContext();
         var newBook = new Book
         {
-            Title = "The Hobbit",
-            Author = "J.R.R. Tolkien",
-            PublishedYear = 1937
+            Title = "A hero of our time",
+            Author = "Lermontov",
+            PublishedYear = 1840
         };
 
         // Act
@@ -63,8 +63,9 @@ public class BookApiTests
         // Assert
         var savedBook = await context.Books.FindAsync(newBook.Id);
         Assert.NotNull(savedBook);
-        Assert.Equal("The Hobbit", savedBook.Title);
-        Assert.Equal("J.R.R. Tolkien", savedBook.Author);
+        Assert.Equal("A hero of our time", savedBook.Title);
+        Assert.Equal("Lermontov", savedBook.Author);
+        Assert.Equal(1840, savedBook.PublishedYear);
     }
 
     [Fact]
@@ -72,15 +73,15 @@ public class BookApiTests
     {
         // Arrange
         using var context = await GetTestDbContext();
-        var book = await context.Books.FirstAsync(b => b.Title == "1984");
+        var book = await context.Books.FirstAsync(b => b.Title == "Lukomorye");
 
         // Act
-        book.Title = "1984 (Updated)";
+        book.Title = "Lukomorye (Updated)";
         await context.SaveChangesAsync();
 
         // Assert
         var updatedBook = await context.Books.FindAsync(book.Id);
-        Assert.Equal("1984 (Updated)", updatedBook?.Title);
+        Assert.Equal("Lukomorye (Updated)", updatedBook?.Title);
     }
 
     [Fact]
