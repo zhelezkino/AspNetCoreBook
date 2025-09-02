@@ -17,6 +17,7 @@
 // c:\PostgreSQL-17\bin\psql.exe -U postgres -h localhost -p 5432 -d bookdb
 // bookdb=# \q
 
+// Needed Entity Framework Core
 // Needed instrument: dotnet-ef
 // dotnet tool install -g dotnet-ef
 // dotnet tool list -g
@@ -31,6 +32,7 @@
 // dotnet ef migrations add InitialCreate --project AspNetCoreBook --startup-project AspNetCoreBook
 // cd C:\Users\boral\source\repos\AspNetCoreBook\AspNetCoreBook
 // dotnet ef database update
+// dotnet ef migrations list // chtck new migrations before new update database
 
 // Check DB:
 // C:\PostgreSQL-17\bin\psql.exe -U postgres -h localhost -p 5432 -d bookdb
